@@ -9,7 +9,7 @@ swagger = Swagger(app)
 
 # config
 DATABASE = 'records.db'
-API_KEY = "my_secure_api_key"  # TODO: move to env vars later
+API_KEY = "my_secure_api_key"
 
 def init_db():
     """set up the database table"""
@@ -255,6 +255,11 @@ def delete_record(record_id):
 @app.route('/')
 def home():
     return "API is running! Check /apidocs for docs"
+
+@app.route('/health')
+def health():
+    """Health check endpoint"""
+    return jsonify({"status": "healthy", "message": "API is running"}), 200
 
 if __name__ == '__main__':
     init_db()

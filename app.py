@@ -2,6 +2,7 @@ from flask import Flask, request, jsonify
 from flasgger import Swagger
 import sqlite3
 from uuid import uuid4
+import os
 
 app = Flask(__name__)
 swagger = Swagger(app)
@@ -257,4 +258,6 @@ def home():
 
 if __name__ == '__main__':
     init_db()
-    app.run(debug=True)
+    # Get port from environment variable (for cloud deployment) or use 5000 for local development
+    port = int(os.environ.get('PORT', 5000))
+    app.run(debug=True, host='0.0.0.0', port=port)

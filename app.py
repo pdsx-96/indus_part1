@@ -260,4 +260,6 @@ if __name__ == '__main__':
     init_db()
     # Get port from environment variable (for cloud deployment) or use 5000 for local development
     port = int(os.environ.get('PORT', 5000))
-    app.run(debug=True, host='0.0.0.0', port=port)
+    # Disable debug mode for production deployment
+    debug_mode = os.environ.get('FLASK_ENV') == 'development'
+    app.run(debug=debug_mode, host='0.0.0.0', port=port)
